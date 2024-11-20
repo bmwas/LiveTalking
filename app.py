@@ -73,13 +73,12 @@ def llm_response(message,nerfreal):
         model=os.getenv("GROQ_LLM_MODEL")
     )
     end = time.perf_counter()
-    print(f"llm Time init: {end-start}s")
+    print(f"Large Language Model (LLM) Time init: {end-start}s")
     completion = client.chat.completions.create(
-        model="qwen-plus",
+        model="llama3-8b-8192",
         messages=[{'role': 'system', 'content': 'You are a helpful assistant.'},
                   {'role': 'user', 'content': message}],
         stream=True,
-        # 通过以下设置，在流式输出的最后一行展示token使用信息
         stream_options={"include_usage": True}
     )
     result=""

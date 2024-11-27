@@ -67,18 +67,17 @@ def llm_response(message,nerfreal):
     from openai import OpenAI
     client = OpenAI(
         # 如果您没有配置环境变量，请在此处用您的API Key进行替换
-        api_key=os.getenv("DASHSCOPE_API_KEY"),
+        api_key=os.getenv("GROQ_API_KEY"),
         # 填写DashScope SDK的base_url
-        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+        base_url="https://api.groq.com/openai/v1",
     )
     end = time.perf_counter()
     print(f"llm Time init: {end-start}s")
     completion = client.chat.completions.create(
-        model="qwen-plus",
+        model="llama-3.1-8b-instant",
         messages=[{'role': 'system', 'content': 'You are a helpful assistant.'},
                   {'role': 'user', 'content': message}],
         stream=True,
-        # 通过以下设置，在流式输出的最后一行展示token使用信息
         stream_options={"include_usage": True}
     )
     result=""

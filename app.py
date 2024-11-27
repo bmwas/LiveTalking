@@ -67,18 +67,18 @@ def llm_response(message,nerfreal):
     from openai import OpenAI
     client = OpenAI(
         # 如果您没有配置环境变量，请在此处用您的API Key进行替换
-        api_key=os.getenv("GROQ_API_KEY"),
+        api_key=os.getenv("DASHSCOPE_API_KEY"),
         # 填写DashScope SDK的base_url
-        base_url=os.getenv("GROQ_LLM_BASE_URL"),
-        model=os.getenv("GROQ_LLM_MODEL")
+        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
     )
     end = time.perf_counter()
-    print(f"Large Language Model (LLM) Time init: {end-start}s")
+    print(f"llm Time init: {end-start}s")
     completion = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="qwen-plus",
         messages=[{'role': 'system', 'content': 'You are a helpful assistant.'},
                   {'role': 'user', 'content': message}],
         stream=True,
+        # 通过以下设置，在流式输出的最后一行展示token使用信息
         stream_options={"include_usage": True}
     )
     result=""
@@ -568,5 +568,3 @@ if __name__ == '__main__':
     # print('start websocket server')
     # server = pywsgi.WSGIServer(('0.0.0.0', 8000), app, handler_class=WebSocketHandler)
     # server.serve_forever()
-    
-    

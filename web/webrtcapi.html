@@ -83,7 +83,7 @@
       fetch('/human', {
             body: JSON.stringify({
                 text: message,
-                type: 'echo',
+                type: 'chat',
                 interrupt: true,
                 sessionid:parseInt(document.getElementById('sessionid').value),
             }),

@@ -19,7 +19,7 @@ import aiohttp_cors
 from aiortc import RTCPeerConnection, RTCSessionDescription
 from aiortc.rtcrtpsender import RTCRtpSender
 from webrtc import HumanPlayer
-
+import os
 import argparse
 
 import shutil
@@ -32,7 +32,8 @@ sockets = Sockets(app)
 nerfreals = []
 statreals = [] 
 
-    
+load_dotenv()
+
 @sockets.route('/humanecho')
 def echo_socket(ws):
     # 获取WebSocket对象
@@ -66,9 +67,7 @@ def llm_response(message,nerfreal):
     start = time.perf_counter()
     from openai import OpenAI
     client = OpenAI(
-        # 如果您没有配置环境变量，请在此处用您的API Key进行替换
         api_key=os.getenv("GROQ_API_KEY"),
-        # 填写DashScope SDK的base_url
         base_url="https://api.groq.com/openai/v1",
     )
     end = time.perf_counter()
